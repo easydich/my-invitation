@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+            overflow: hidden; /* Чтобы не дергался экран при беге кнопки */
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-wrapper {
+            margin-top: 30px;
+            height: 60px; /* Резервируем место под кнопки */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: 0.1s;
+        }
+
+        #yesBtn { background: #4CAF50; color: white; }
+        
+        #noBtn { 
+            background: #f44336; 
+            color: white; 
+            position: absolute; /* Делаем её сразу готовой к перемещению */
+            margin-left: 120px; /* Сдвигаем вправо от центра, чтобы была рядом с Да */
+        }
+
+        #datePicker {
+            display: none; /* Скрыто по умолчанию */
+        }
+
+        input { display: block; margin: 10px auto; padding: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="box">
+        <div id="content">
+            <h1>У тебя есть свободное время?</h1>
+            <div class="btn-wrapper">
+                <button id="yesBtn">Да</button>
+                <button id="noBtn">Нет</button>
+            </div>
+        </div>
+
+        <div id="datePicker">
+            <h2>Отлично! Выбирай время:</h2>
+            <input type="date">
+            <input type="time">
+            <button onclick="alert('Договорились!')" style="background: #2196F3; color: white;">Готово</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const content = document.getElementById('content');
+        const datePicker = document.getElementById('datePicker');
+
+        // 1. ЛОГИКА ДЛЯ КНОПКИ "НЕТ"
+        noBtn.addEventListener('mouseover', function() {
+            // Случайные координаты по всей ширине и высоте окна
+            const x = Math.random() * (window.innerWidth - this.offsetWidth);
+            const y = Math.random() * (window.innerHeight - this.offsetHeight);
+            
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+            this.style.margin = '0'; // Сбрасываем начальный отступ
+        });
+
+        // 2. ЛОГИКА ДЛЯ КНОПКИ "ДА"
+        yesBtn.addEventListener('click', function() {
+            console.log("Нажали ДА"); // Для проверки в консоли
+            content.style.display = 'none';
+            noBtn.style.display = 'none';
+            datePicker.style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
